@@ -18,9 +18,9 @@
 
 Camera3D setupCamera();
 void drawGrid();
-int isCorner(int x, int y);
-int isKingsHall(int x, int y);
-int isSpecialCell(int x, int y);
+int isCorner(int variantSize, int x, int y);
+int isKingsHall(int variantSizew, int x, int y);
+int isSpecialCell(int variantSize, int x, int y);
 
 
 
@@ -67,9 +67,9 @@ int main(){
 
 				//DrawModel(taflKing, position, 0.2f, WHITE);
 				DrawModel(taflKing, position, 0.2f, WHITE);
-				DrawGrid(9, 1.0f);
+				//DrawGrid(9, 1.0f);
 
-				drawGrid();
+				drawGrid(TABLUT, TABLUT_SIZE);
 			EndMode3D();
 			
 			if(DEBUG){
@@ -84,16 +84,16 @@ int main(){
 	return 0;
 }
 
-void drawGrid(){
+void drawGrid(int** variant, int variantSize){
 	//TODO take in an actual grid object or something
 	int i,j;
 	int lastStyle = 1;//DARK
 	Vector3 cellSize = (Vector3){10.0f, 1.0f, 10.0f};
-	for(i=0; i < TABLUT_SIZE; i++){
-		for(j=0; j < TABLUT_SIZE; j++){
+	for(i=0; i < variantSize; i++){
+		for(j=0; j < variantSize; j++){
 			//TODO add logic for annotations
 			Vector3 pos = (Vector3){10.0f*i, 0.0f, 10.0f*j};
-			if(isSpecialCell(i, j)){
+			if(isSpecialCell(variantSize, i, j)){
 				DrawCubeV(pos, cellSize, YELLOW);
 			}else{
 				Color col = lastStyle == 1 ? DARK : LIGHT;
@@ -104,19 +104,19 @@ void drawGrid(){
 	}
 }
 
-int isCorner(int x, int y){
+int isCorner(int variantSize, int x, int y){
 	return x == 0 && y == 0 ||
-	x == 0 && y == TABLUT_SIZE-1 ||
-	x == TABLUT_SIZE-1 && y == 0 ||
-	x == TABLUT_SIZE-1 && y == TABLUT_SIZE-1;
+	x == 0 && y == variantSize-1 ||
+	x == variantSize-1 && y == 0 ||
+	x == variantSize-1 && y == variantSize-1;
 }
 
-int isKingsHall(int x, int y){
-	return x == TABLUT_SIZE/2 && y == TABLUT_SIZE/2; 
+int isKingsHall(int variantSize, int x, int y){
+	return x == variantSize/2 && y == variantSize/2; 
 }
 
-int isSpecialCell(int x, int y){
-	return isKingsHall(x, y) || isCorner(x, y);
+int isSpecialCell(int variantSize, int x, int y){
+	return isKingsHall(variantSize, x, y) || isCorner(variantSize, x, y);
 }
 
 Camera3D setupCamera(){
