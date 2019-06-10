@@ -1,5 +1,8 @@
 #include "raylib.h"
-#include "colors.h"	//custom colors for Tafl board annotation
+
+#include "colors.h"		//custom colors for Tafl board annotation
+#include "tafl_variants.h"	//starting grid layouts
+
 #include <stdio.h>
 
 // gcc main.c -o out.a -lraylib -lX11
@@ -19,7 +22,8 @@ int isCorner(int x, int y);
 int isKingsHall(int x, int y);
 int isSpecialCell(int x, int y);
 
-#define TABLUT_SIZE 9
+
+
 //Color TABLUT_GRID[TABLUT_SIZE][TABLUT_SIZE] = {
 //{YELLOW, 
 //};
@@ -59,11 +63,13 @@ int main(){
 				//TODO draw grid
 				//DrawRectangle(0,0,200,200,YELLOW);
 				//DrawCubeV((Vector3){0.0f, 0.0f, 0.0f}, (Vector3){10.0f, 1.0f, 10.0f}, YELLOW);
-				drawGrid();
+				//drawGrid();
 
 				//DrawModel(taflKing, position, 0.2f, WHITE);
-				DrawModel(taflKing, position, 0.2f, LAST_MOVE_DARK);//WHITE);
+				DrawModel(taflKing, position, 0.2f, WHITE);
 				DrawGrid(9, 1.0f);
+
+				drawGrid();
 			EndMode3D();
 			
 			if(DEBUG){
@@ -102,7 +108,7 @@ int isCorner(int x, int y){
 	return x == 0 && y == 0 ||
 	x == 0 && y == TABLUT_SIZE-1 ||
 	x == TABLUT_SIZE-1 && y == 0 ||
-	x == TABLUT_SIZE && y == TABLUT_SIZE;
+	x == TABLUT_SIZE-1 && y == TABLUT_SIZE-1;
 }
 
 int isKingsHall(int x, int y){
@@ -118,7 +124,7 @@ Camera3D setupCamera(){
 	camera.position = (Vector3){110.0f, 40.0f, 110.0f};
 	camera.target = (Vector3){0.0f, 0.0f, 0.0f};
 	camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-	camera.fovy = 60.0f;
+	camera.fovy = 90.0f;
 	camera.type = CAMERA_PERSPECTIVE;
 
 	return camera;
