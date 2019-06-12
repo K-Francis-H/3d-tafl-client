@@ -1,3 +1,6 @@
+#ifndef TAFL_VARIANTS_H
+#define TAFL_VARIANTS_H
+
 #define E 0x00
 #define W 0x01
 #define B 0x02
@@ -40,152 +43,16 @@ enum Variant{
 	Alea_Evangelii
 };
 
-int BRANDUBH[BRANDUBH_SIZE][BRANDUBH_SIZE] = {
-	{0,0,0,B,0,0,0},
-	{0,0,0,B,0,0,0},
-	{0,0,0,W,0,0,0},
-	{B,B,W,K,W,B,B},
-	{0,0,0,W,0,0,0},
-	{0,0,0,B,0,0,0},
-	{0,0,0,B,0,0,0}
-	
-};
+const int BRANDUBH[BRANDUBH_SIZE][BRANDUBH_SIZE];
+const int GWDDBWYLL[GWDDBWYLL_SIZE][GWDDBWYLL_SIZE];
+const int FIDCHELL[FIDCHELL_SIZE][FIDCHELL_SIZE];
+const int ARD_RI[ARD_RI_SIZE][ARD_RI_SIZE];
+const int TABLUT[TABLUT_SIZE][TABLUT_SIZE];
+const int TAWLBWRDD[TAWLBWRDD_SIZE][TAWLBWRDD_SIZE];
+const int TAWLBWRDD_ALTERNATE[TAWLBWRDD_ALT_SIZE][TAWLBWRDD_ALT_SIZE];
+const int TAWLBWRDD_ALTERNATE_2[TAWLBWRDD_ALT_2_SIZE][TAWLBWRDD_ALT_2_SIZE];
+const int HNEFATAFL[HNEFATAFL_SIZE][HNEFATAFL_SIZE];
+const int LARGE_HNEFATAFL[LARGE_HNEFATAFL_SIZE][LARGE_HNEFATAFL_SIZE];
+const int ALEA_EVANGELII[ALEA_EVANGELII_SIZE][ALEA_EVANGELII_SIZE];
 
-int GWDDBWYLL[GWDDBWYLL_SIZE][GWDDBWYLL_SIZE] = {
-	{0,0,B,0,B,0,0},
-	{0,0,0,0,0,0,0},
-	{B,0,0,W,0,0,B},
-	{0,0,W,K,W,0,0},
-	{B,0,0,W,0,0,B},
-	{0,0,0,0,0,0,0},
-	{0,0,B,0,B,0,0}
-	
-};
-
-int FIDCHELL[FIDCHELL_SIZE][FIDCHELL_SIZE] = {
-	{B,0,B,B,B,0,B},
-	{0,0,0,W,0,0,0},
-	{B,0,0,W,0,0,B},
-	{B,W,W,K,W,W,B},
-	{B,0,0,W,0,0,B},
-	{0,0,0,W,0,0,0},
-	{B,0,B,B,B,0,B}
-	
-};
-
-int ARD_RI[ARD_RI_SIZE][ARD_RI_SIZE] = {
-	{B,0,B,B,B,0,B},
-	{0,0,0,B,0,0,0},
-	{B,0,W,W,W,0,B},
-	{B,B,W,K,W,B,B},
-	{B,0,W,W,W,0,B},
-	{0,0,0,B,0,0,0},
-	{B,0,B,B,B,0,B}
-	
-};
-
-int TABLUT[TABLUT_SIZE][TABLUT_SIZE] = {
-	{0,0,0,B,B,B,0,0,0},
-	{0,0,0,0,B,0,0,0,0},
-	{0,0,0,0,W,0,0,0,0},
-	{B,0,0,0,W,0,0,0,B},
-	{B,B,W,W,K,W,W,B,B},
-	{B,0,0,0,W,0,0,0,B},
-	{0,0,0,0,W,0,0,0,0},
-	{0,0,0,0,B,0,0,0,0},
-	{0,0,0,B,B,B,0,0,0}
-};
-
-int TAWLBWRDD[TAWLBWRDD_SIZE][TAWLBWRDD_SIZE] = { 
-	{0,0,0,0,B,B,B,0,0,0,0},
-	{0,0,0,0,B,0,B,0,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{B,B,0,0,W,W,W,0,0,B,B},
-	{B,0,B,W,W,K,W,W,B,0,B},
-	{B,B,0,0,W,W,W,0,0,B,B},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,0,B,0,B,0,0,0,0},
-	{0,0,0,0,B,B,B,0,0,0,0}
-};
-
-int TAWLBWRDD_ALTERNATE[TAWLBWRDD_ALT_SIZE][TAWLBWRDD_ALT_SIZE] = { 
-	{0,0,0,0,B,B,B,0,0,0,0},
-	{0,0,0,0,B,B,B,0,0,0,0},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{B,B,0,0,W,W,W,0,0,B,B},
-	{B,B,W,W,W,K,W,W,W,B,B},
-	{B,B,0,0,W,W,W,0,0,B,B},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{0,0,0,0,B,B,B,0,0,0,0},
-	{0,0,0,0,B,B,B,0,0,0,0}
-};
-
-int TAWLBWRDD_ALTERNATE_2[TAWLBWRDD_ALT_2_SIZE][TAWLBWRDD_ALT_2_SIZE] = { 
-	{0,0,0,B,B,B,B,B,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{B,0,0,0,0,W,0,0,0,0,B},
-	{B,0,0,0,W,W,W,0,0,0,B},
-	{B,B,W,W,W,K,W,W,W,B,B},
-	{B,0,0,0,W,W,W,0,0,0,B},
-	{B,0,0,0,0,W,0,0,0,0,B},
-	{0,0,0,0,0,W,0,0,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,B,B,B,B,B,0,0,0}
-};
-
-int HNEFATAFL[HNEFATAFL_SIZE][HNEFATAFL_SIZE] = {
-	{0,0,0,B,B,B,B,B,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0},
-	{B,0,0,0,0,W,0,0,0,0,B},
-	{B,0,0,0,W,W,W,0,0,0,B},
-	{B,B,0,W,W,K,W,W,0,B,B},
-	{B,0,0,0,W,W,W,0,0,0,B},
-	{B,0,0,0,0,W,0,0,0,0,B},
-	{0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,B,0,0,0,0,0},
-	{0,0,0,B,B,B,B,B,0,0,0}
-};
-
-int LARGE_HNEFATAFL[LARGE_HNEFATAFL_SIZE][LARGE_HNEFATAFL_SIZE] = {
-	{0,0,0,0,B,B,B,B,B,0,0,0,0},
-	{0,0,0,0,0,0,B,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,W,0,0,0,0,0,0},
-	{B,0,0,0,0,0,W,0,0,0,0,0,B},
-	{B,0,0,0,0,0,W,0,0,0,0,0,B},
-	{B,B,0,W,W,W,K,W,W,W,0,B,B},
-	{B,0,0,0,0,0,W,0,0,0,0,0,B},
-	{B,0,0,0,0,0,W,0,0,0,0,0,B},
-	{0,0,0,0,0,0,W,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,B,0,0,0,0,0,0},
-	{0,0,0,0,B,B,B,B,B,0,0,0,0}
-};
-
-int ALEA_EVANGELII[ALEA_EVANGELII_SIZE][ALEA_EVANGELII_SIZE] = {
-	{0,0,B,0,0,B,0,0,0,0,0,0,0,B,0,0,B,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{B,0,0,0,0,B,0,0,0,0,0,0,0,B,0,0,0,0,B},
-	{0,0,0,0,0,0,0,B,0,B,0,B,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,B,0,W,0,W,0,B,0,0,0,0,0,0},
-	{B,0,B,0,0,B,0,0,0,0,0,0,0,B,0,0,B,0,B},
-	{0,0,0,0,B,0,0,0,0,W,0,0,0,0,B,0,0,0,0},
-	{0,0,0,B,0,0,0,0,W,0,W,0,0,0,0,B,0,0,0},
-	{0,0,0,0,W,0,0,W,0,W,0,W,0,0,W,0,0,0,0},
-	{0,0,0,B,0,0,W,0,W,K,W,0,W,0,0,B,0,0,0},
-	{0,0,0,0,W,0,0,W,0,W,0,W,0,0,W,0,0,0,0},
-	{0,0,0,B,0,0,0,0,W,0,W,0,0,0,0,B,0,0,0},
-	{0,0,0,0,B,0,0,0,0,W,0,0,0,0,B,0,0,0,0},
-	{B,0,B,0,0,B,0,0,0,0,0,0,0,B,0,0,B,0,B},
-	{0,0,0,0,0,0,B,0,W,0,W,0,B,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,B,0,B,0,B,0,0,0,0,0,0,0},
-	{B,0,0,0,0,B,0,0,0,0,0,0,0,B,0,0,0,0,B},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,B,0,0,B,0,0,0,0,0,0,0,B,0,0,B,0,0}
-};
+#endif
