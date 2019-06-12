@@ -25,6 +25,21 @@
 #define LARGE_HNEFATAFL_SIZE 13
 #define ALEA_EVANGELII_SIZE 19
 
+
+enum Variant{
+	Brandubh,
+	Gwddbwyll,
+	Fidchell,
+	Ard_Ri,
+	Tablut,
+	Tawlbwrdd,
+	Tawlbwrdd_Alternate,
+	Tawlbwrdd_Alternate_2,
+	Hnefatafl,
+	Large_Hnefatafl,
+	Alea_Evangelii
+};
+
 int BRANDUBH[BRANDUBH_SIZE][BRANDUBH_SIZE] = {
 	{0,0,0,B,0,0,0},
 	{0,0,0,B,0,0,0},
