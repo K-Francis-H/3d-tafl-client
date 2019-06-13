@@ -13,8 +13,8 @@
 
 
 
-#define SWIDTH 800
-#define SHEIGHT 450
+#define SWIDTH 1000
+#define SHEIGHT 1000
 
 #define TRUE 1
 #define FALSE 0
@@ -83,7 +83,10 @@ int main(){
 				//DrawBoundingBox(bounds, GREEN);
 
 				if(isValidCell(&selectedCell, board.size)){
-					DrawBoundingBox(getBoundingBoxForCell(selectedCell.x, selectedCell.y, 10.0f), GREEN);
+					//DrawBoundingBox(getBoundingBoxForCell(selectedCell.x, selectedCell.y, 10.0f), GREEN);
+					Vector3 cellSize = (Vector3){10.0f, 1.0f, 10.0f};
+					Vector3 pos = (Vector3){10.0f*selectedCell.x, 0.0f, 10.0f*selectedCell.y};
+					DrawCubeV(pos, cellSize, getSelectionColorForCell(selectedCell.x, selectedCell.y));
 				}
 
 			EndMode3D();

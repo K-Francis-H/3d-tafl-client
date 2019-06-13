@@ -84,6 +84,14 @@ bool isValidCell(Cell* cell, int size){
 	&& cell->y < size && cell->x < size;
 }
 
+Color getSelectionColorForCell(int x, int y){
+	if( (x % 2 == 0 && y % 2 == 0) || (x % 2 == 1 || y % 2 == 1) ){
+		return SELECTED_DARK;
+	}else{
+		return SELECTED_LIGHT;
+	}
+}
+
 void initTaflBoard(TaflBoard* dest, enum Variant variant){
 	int i,j;
 	switch(variant){

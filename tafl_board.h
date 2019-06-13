@@ -18,6 +18,7 @@ void drawGrid(TaflBoard* board, Model* attackerPawn, Model* defenderPawn, Model*
 int isCorner(int variantSize, int x, int y);
 int isKingsHall(int variantSizew, int x, int y);
 int isSpecialCell(int variantSize, int x, int y);
+Color getSelectionColorForCell(int x, int y);
 
 void initTaflBoard(TaflBoard* dest, enum Variant variant);
 
