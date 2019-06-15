@@ -6,6 +6,7 @@ typedef struct{
 	//not ideal from efficiency standpoint, but keeps boards always static
 	//which is really nice, dont really want to debug int** issues
 	int state[ALEA_EVANGELII_SIZE][ALEA_EVANGELII_SIZE];
+	Model *king, *attacker, *defender;
 } TaflBoard;
 
 TaflBoard board;
@@ -20,9 +21,10 @@ int isKingsHall(int variantSizew, int x, int y);
 int isSpecialCell(int variantSize, int x, int y);
 Color getSelectionColorForCell(int x, int y);
 
-void initTaflBoard(TaflBoard* dest, enum Variant variant);
+void initTaflBoard(TaflBoard* dest, enum Variant variant, Model* kingModel, Model* defender, Model* attacker);
 
 BoundingBox getBoundingBoxForCell(int x, int y, float scale);
+BoundingBox getBoundingBoxForPiece(TaflBoard* board, int x, int y, float scale);
 Cell getSelectedCell(TaflBoard* board, Camera3D* cam);
 bool isValidCell(Cell* cell, int size);
 #endif

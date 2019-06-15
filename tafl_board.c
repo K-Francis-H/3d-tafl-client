@@ -3,6 +3,8 @@
 #include "tafl_variants.h"
 #include "tafl_board.h"
 
+#include <stdio.h>
+
 void drawGrid(TaflBoard* board, Model* attackerPawn, Model* defenderPawn, Model* taflKing){
 	//TODO take in an actual grid object or something
 	int i,j;
@@ -64,6 +66,53 @@ BoundingBox getBoundingBoxForCell(int x, int y, float scale){
 		};
 }
 
+static Vector3 scaleVector3(Vector3 v, float scale){
+	v.x *= scale;
+	v.y *= scale;
+	v.z *= scale;
+	return v;
+}
+
+static Vector3 translateVector3(Vector3 v, float xOff, float yOff, float zOff){
+	v.x += xOff;
+	v.y += yOff;
+	v.z += zOff;
+	return v;
+}
+
+//TODO need access to the pawn and king models
+BoundingBox getBoundingBoxForPiece(TaflBoard* board, int x, int y, float scale){
+	printf("getboundingBoxForPiece: X:%d Y:%d TYPE:%d\n", x, y, board->state[x][y]);
+	int type = board->state[x][y];
+	if(type == B || type == W){//pawn
+		printf("getboundingBoxForPiece: is pawn\n");
+		BoundingBox pawnBox = MeshBoundingBox( board->attacker->meshes[0] );
+		pawnBox.min = scaleVector3(pawnBox.min, scale);
+		pawnBox.max = scaleVector3(pawnBox.max, scale);
+		pawnBox.min = translateVector3(pawnBox.min, x*10.0f, 0.0f, y*10.0f);
+		pawnBox.max = translateVector3(pawnBox.max, x*10.0f, 0.0f, y*10.0f);
+		return pawnBox;  
+	}
+	else if(type == K){
+		printf("TYPE IS KING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		//printf("getboundingBoxForPiece: is king\n selected? %d", );
+		BoundingBox kingBox = MeshBoundingBox( board->king->meshes[0] );
+		kingBox.min = scaleVector3(kingBox.min, scale);
+		kingBox.max = scaleVector3(kingBox.max, scale);
+		kingBox.min = translateVector3(kingBox.min, x*10.0f, 0.0f, y*10.0f);
+		kingBox.max = translateVector3(kingBox.max, x*10.0f, 0.0f, y*10.0f);
+		return kingBox;
+	}else{
+		printf("getboundingBoxForPiece: is nothing\n");
+	}
+
+	//TODO return error?
+	return (BoundingBox){
+			(Vector3){0.0f, 0.0f, 0.0f}, 
+			(Vector3){0.0f, 0.0f, 0.0f},
+		};
+}
+
 int isCorner(int variantSize, int x, int y){
 	return x == 0 && y == 0 ||
 	x == 0 && y == variantSize-1 ||
@@ -92,13 +141,17 @@ Color getSelectionColorForCell(int x, int y){
 	}
 }
 
-void initTaflBoard(TaflBoard* dest, enum Variant variant){
+void initTaflBoard(TaflBoard* dest, enum Variant variant, Model* kingModel, Model* defender, Model* attacker){
 	int i,j;
+	dest->king = kingModel;
+	dest->attacker = attacker;
+	dest->defender = defender;
 	switch(variant){
 		case Brandubh:
 			dest->size = BRANDUBH_SIZE;
 			for(i=0; i < BRANDUBH_SIZE; i++){
 				for(j=0; j < BRANDUBH_SIZE; j++){
+					printf("TYPE: %d\n", BRANDUBH[i][j]);
 					dest->state[i][j] = BRANDUBH[i][j];
 				}
 			}

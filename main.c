@@ -21,7 +21,14 @@
 
 #define DEBUG 
 
+typedef struct{
+	Cell start, end;
+} Move;
+
 Camera3D setupCamera();
+
+const int DEFENDERS = W;
+const int ATTACKERS = B;
 
 Model taflKing, defenderPawn, attackerPawn;
 
@@ -30,6 +37,9 @@ int main(){
 	InitWindow(SWIDTH, SHEIGHT, "testing");
 
 	Camera3D cam = setupCamera();
+
+	//game params
+	int currentPlayer = B;
 
 	//load king
 	taflKing = LoadModel("res/model/textured_granite_king.obj");
@@ -51,8 +61,8 @@ int main(){
 	BoundingBox bounds = MeshBoundingBox(taflKing.meshes[0]); 
 	
 	//int state[TABLUT_SIZE][TABLUT_SIZE];
-	enum Variant variant = Alea_Evangelii;
-	initTaflBoard(&board, variant);
+	enum Variant variant = Brandubh;//Alea_Evangelii;
+	initTaflBoard(&board, variant, &taflKing, &defenderPawn, &attackerPawn);
 	printf("variant size: %d\n", board.size);
 	
 
@@ -63,13 +73,43 @@ int main(){
 	SetTargetFPS(60);
 
 	Cell selectedCell = (Cell){ -1, -1 };
+	BoundingBox selectedPiece;
+	bool isSelected = false;
 
 	while(!WindowShouldClose()){
 
 		UpdateCamera(&cam);
 
 		if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-			selectedCell = getSelectedCell(&board, &cam);
+
+			//check if player is in piece choosing state or move choosing state
+
+			//if piece choosing
+				//check the bounding box of pieces for the current player
+
+			//else
+				//check bounding boxes of available moves
+			int i, j;
+			
+			
+			Ray ray = GetMouseRay(GetMousePosition(), cam);
+			for(i=0; i < board.size; i++){
+				for(j=0; j < board.size; j++){
+					selectedPiece = getBoundingBoxForPiece(&board, i, j, 0.2f);
+					isSelected = CheckCollisionRayBox(
+						ray, 
+						selectedPiece
+					);
+					if(isKingsHall(i, j, board.size)){
+						printf("is king selected: %d\n", isSelected);
+					}
+					if(isSelected){goto EXIT;}
+				}
+
+			}
+			EXIT: ;
+
+			//selectedCell = getSelectedCell(&board, &cam);
 		}
 
 		BeginDrawing();
@@ -87,6 +127,10 @@ int main(){
 					Vector3 cellSize = (Vector3){10.0f, 1.0f, 10.0f};
 					Vector3 pos = (Vector3){10.0f*selectedCell.x, 0.0f, 10.0f*selectedCell.y};
 					DrawCubeV(pos, cellSize, getSelectionColorForCell(selectedCell.x, selectedCell.y));
+				}
+
+				if(isSelected){
+					DrawBoundingBox(selectedPiece, GREEN);
 				}
 
 			EndMode3D();
