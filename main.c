@@ -25,7 +25,16 @@ typedef struct{
 	Cell start, end;
 } Move;
 
+typedef struct{
+	int player;
+	bool hasSelectedPiece;
+	Cell start, end;
+} Turn;
+
 Camera3D setupCamera();
+//void getSelectedPiece(TaflBoard *board, Ray *mouseRay, int player, BoundingBox *result);
+
+int getSelectedPiece(TaflBoard board, Ray mouseRay, int player, BoundingBox **result);
 
 const int DEFENDERS = W;
 const int ATTACKERS = B;
@@ -73,8 +82,15 @@ int main(){
 	SetTargetFPS(60);
 
 	Cell selectedCell = (Cell){ -1, -1 };
-	BoundingBox selectedPiece;
+	BoundingBox *selectedPiece;
 	bool isSelected = false;
+
+	Turn turn = (Turn){
+		B,
+		false,
+		(Cell){-1, -1},
+		(Cell){-1, -1}
+	};
 
 	while(!WindowShouldClose()){
 
@@ -90,27 +106,28 @@ int main(){
 			//else
 				//check bounding boxes of available moves
 			int i, j;
-			
-			
 			Ray ray = GetMouseRay(GetMousePosition(), cam);
-			for(i=0; i < board.size; i++){
-				for(j=0; j < board.size; j++){
-					selectedPiece = getBoundingBoxForPiece(&board, i, j, 0.2f);
-					isSelected = CheckCollisionRayBox(
-						ray, 
-						selectedPiece
-					);
-					if(isKingsHall(i, j, board.size)){
-						printf("is king selected: %d\n", isSelected);
-					}
-					if(isSelected){goto EXIT;}
+			if(!turn.hasSelectedPiece){
+				//search for piece selection
+				int result = getSelectedPiece(board, ray, turn.player, &selectedPiece);
+				if(result == -1){
+					printf("NOTHING CLICKED\n");
+					isSelected = false;
+				}else{
+					isSelected = true;
+					printf("SOMETHING CLICKED\n");
 				}
-
 			}
-			EXIT: ;
+			else{
+				//TODO search for available move ending cell
+				selectedCell = getSelectedCell(&board, &cam);
+			}
 
 			//selectedCell = getSelectedCell(&board, &cam);
 		}
+
+		//TODO if a piece is selected show available moves, and iterate through them above until one is chosen
+		//begin performing move
 
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
@@ -130,7 +147,7 @@ int main(){
 				}
 
 				if(isSelected){
-					DrawBoundingBox(selectedPiece, GREEN);
+					DrawBoundingBox((*selectedPiece), GREEN);
 				}
 
 			EndMode3D();
@@ -144,9 +161,29 @@ int main(){
 	}
 	CloseWindow();
 
+	//cleanup
+	free(selectedPiece);
+
 	return 0;
 }
 
+int getSelectedPiece(TaflBoard board, Ray mouseRay, int player, BoundingBox **result){
+	(*result) = malloc(sizeof(BoundingBox));
+
+	int i,j;
+	for(int i=0; i < board.size; i++){
+		for(int j=0; j < board.size; j++){
+			if( (board.state[i][j] & player) > 0){
+				/*BoundingBox selectedPiece*/ (*(*result)) = getBoundingBoxForPiece(&board, i, j, 0.2f);
+				bool isSelected = CheckCollisionRayBox(mouseRay, (*(*result)));
+				if(isSelected){
+					return 0;
+				}
+			}
+		}
+	}
+	return -1;
+}
 
 Camera3D setupCamera(){
 	Camera3D camera = {0};
